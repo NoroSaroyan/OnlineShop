@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import ru.gb.entity.User;
 import ru.gb.repository.RoleRepository;
 import ru.gb.repository.UserRepository;
-
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service

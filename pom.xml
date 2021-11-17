@@ -76,7 +76,7 @@
                     <user>root</user>
                     <password>16012004</password>
                     <schemas>
-                        <schema>geek_db</schema>
+                        <schema>OnlineShop</schema>
                     </schemas>
                 </configuration>
             </plugin>
