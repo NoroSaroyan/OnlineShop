@@ -23,7 +23,6 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     @Query("SELECT p FROM Product  as p WHERE p.id = :id")
     Product getById(@Param("id") long id);
 
-
     @Modifying
     @Query("UPDATE Product as p SET p.name='$name',p.price='$price' where p.id = :id")
     @Transactional
