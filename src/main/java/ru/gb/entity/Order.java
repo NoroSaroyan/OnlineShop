@@ -17,4 +17,15 @@ public class Order {
 
     @Column(name = "user_id")
     private Long userId;
+
+    @Column(name = "order_price")
+    private double orderPrice;
+
+    //TODO - do we need a status entity?
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "quantity")
+    private int productQuantity;
+
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -28,9 +29,11 @@ public class User {
     @ManyToMany
     @JoinTable(
             name = "users_roles",
-            joinColumns = @JoinColumn(name = "users_id" , referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id" , referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private List<Role> roles;
+
+    //TODO read sql constraints
 }
 

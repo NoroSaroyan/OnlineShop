@@ -11,8 +11,11 @@ import ru.gb.entity.Cart;
 import ru.gb.entity.Product;
 import ru.gb.repository.CartRepository;
 import ru.gb.repository.ProductRepository;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping()
@@ -29,19 +32,16 @@ public class CartController {
 
     @GetMapping("/carts")
     public String findAll(@NotNull Model model) {
-
         List<Cart> carts = new ArrayList<>();
         repository.findAll().forEach(carts::add);
         model.addAttribute("carts", carts);
         return "carts";
-
     }
 
     @GetMapping("carts/{id}")
     public Cart findById(@PathVariable Long id) {
-        return repository.getById(id);
+        return repository.findById(id).orElseThrow(() -> new RuntimeException());
     }
-
 
     @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {

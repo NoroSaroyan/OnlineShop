@@ -15,8 +15,9 @@ public interface CartRepository extends PagingAndSortingRepository<Cart, Long> {
     Iterable<Cart> findAll();
 
     @Query("SELECT c FROM Cart  as c WHERE c.id = :id")
-    Cart getById(@Param("id") long id);
+    Cart findById(@Param("id") long id);
 
+    //TODO read nativeQuery blocking product_id ...
     @Modifying
     @Transactional
     @Query(value = "insert into carts(productCount, product_id) values (:productCount, :product_id)", nativeQuery = true)

@@ -67,20 +67,16 @@ public class UserController {
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
-
         return "registration";
     }
 
     @PreAuthorize("hasAuthority('ROLE_SUPERADMIN')")
     @PostMapping("/registration")
     public String addUser(@ModelAttribute("userForm") @PathVariable User user, BindingResult bindingResult, Model model) {
-
         if (bindingResult.hasErrors()) {
             repository.save(user);
             return "registration";
         }
-
-
         return "redirect:/";
     }
 }

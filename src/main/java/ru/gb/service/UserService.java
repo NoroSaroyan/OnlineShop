@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
         );
     }
 
-    public void saveUser(User user) throws NoSuchAlgorithmException {
+    public void registration(User user) throws NoSuchAlgorithmException {
         //if username isn't taken , then
         String encodedPassword = SHA256_impl.toHexString(SHA256_impl.getSHA(user.getPassword()));
         //user data to be sent to db ;
