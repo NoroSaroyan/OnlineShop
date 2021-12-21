@@ -21,7 +21,7 @@ public class Order {
     @Column(name = "order_price")
     private double orderPrice;
 
-    //TODO - do we need a status entity?
+    //TODO - do we need a status object?
     @Column(name = "status")
     private String status;
 
