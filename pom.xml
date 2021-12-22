@@ -69,10 +69,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>5.2.1</version>
                 <configuration>
-                    <url>
-                        jdbc:mysql://localhost:3306/onlineShop?useSSL=false&amp;
-                        useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC
-                    </url>
+                    <url>jdbc:mysql://localhost:3306/onlineShop?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</url>
                     <user>root</user>
                     <password>16012004</password>
                     <schemas>
