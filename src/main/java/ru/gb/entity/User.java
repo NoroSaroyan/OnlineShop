@@ -20,7 +20,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "first_name")
+    @Column(name = "name")
     private String firstName;
 
     @Column(name = "last_name")
@@ -28,8 +28,8 @@ public class User {
 
     @ManyToMany
     @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
+            name = "user_role_relations",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private List<Role> roles;

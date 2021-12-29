@@ -18,14 +18,11 @@ public class Order {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "order_price")
-    private double orderPrice;
+    @Column(name = "price")
+    private double price;
 
     //TODO - do we need a status object?
     @Column(name = "status")
     private String status;
-
-    @Column(name = "quantity")
-    private int productQuantity;
 
 }

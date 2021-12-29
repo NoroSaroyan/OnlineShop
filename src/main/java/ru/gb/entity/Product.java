@@ -3,7 +3,6 @@ package ru.gb.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
@@ -13,12 +12,8 @@ public class Product {
     @GeneratedValue
     private Long id;
 
-    @ManyToMany(mappedBy = "products")
-    @Column(name = "category_id")
-    private List<Category> categories;
-
     @Column(name = "title")
-    private String name;
+    private String title;
 
     @Column(name = "price")
     private double price;

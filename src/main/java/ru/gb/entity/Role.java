@@ -16,6 +16,7 @@ public class Role {
     @Column(name = "name")
     private String name;
 
+    //TODO check if mappedBy is needed
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
 

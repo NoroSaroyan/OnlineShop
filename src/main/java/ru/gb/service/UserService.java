@@ -1,51 +1,78 @@
 package ru.gb.service;
 
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.gb.encoder.SHA256_impl;
 import ru.gb.entity.User;
-import ru.gb.repository.RoleRepository;
 import ru.gb.repository.UserRepository;
 
-import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
-    private RoleRepository roleRepository;
-    private UserRepository userRepository;
-    private SHA256_impl encoding;
+    private UserRepository<User> userRepository;
 
-    public UserService(RoleRepository roleRepository, UserRepository userRepository) {
-        this.roleRepository = roleRepository;
+    @Autowired
+    public UserService(UserRepository<User> userRepository) {
         this.userRepository = userRepository;
-        this.encoding = new SHA256_impl();
+    }
+
+
+    public User findOne(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> mayBeUser = userRepository.findByEmail(email);
+        System.out.println("\n_________try to find user : " + email);
+        Optional<ru.gb.entity.User> mayBeUser = userRepository.findByEmail(email);
         if (mayBeUser.isEmpty()) {
             throw new UsernameNotFoundException("User with username:" + email + "not found");
         }
-        User user = mayBeUser.get();
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
-                user.getRoles()
-                        .stream()
-                        .map(role -> new SimpleGrantedAuthority(role.getName()))
-                        .toList()
+        ru.gb.entity.User user = mayBeUser.get();
+        UserDetails u = org.springframework.security.core.userdetails.User.
+                withUsername(user.getEmail()).
+                password(user.getPassword()).
+                authorities("USER").
+                build();
+        return u;
+//        return new org.springframework.security.core.userdetails.User(
+//                user.getEmail(),
+//                user.getPassword(),
+//                user.getRoles()
+//                        .stream()
+//                        .map(role -> new SimpleGrantedAuthority(role.getName()))
+//                        .toList()
+//        );
+    }
+
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(
+                pageable
         );
     }
 
-    public void registration(User user) throws NoSuchAlgorithmException {
-        //if username isn't taken , then
-        String encodedPassword = SHA256_impl.toHexString(SHA256_impl.getSHA(user.getPassword()));
-        //user data to be sent to db ;
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+
+    public void deleteById(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
+    public User findById(Long id) {
+        Optional<User> mayBeUser = userRepository.findById(id);
+        return mayBeUser.orElse(null);
+    }
+
+    public void save(User user) {
+        userRepository.save(user);
     }
 }

@@ -19,11 +19,12 @@ public class Category {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_categories",
-            joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id")
-    )
+    //Todo check if join table is needed
+    @ManyToMany(targetEntity = Product.class,mappedBy = "id")
+//    @JoinTable(
+//            name = "category_product_relations",
+//            joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id")
+//    )
     private List<Product> products;
 }

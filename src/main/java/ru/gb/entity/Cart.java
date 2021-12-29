@@ -7,7 +7,8 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "carts")
+//@Table(name = "carts")
+//do we need a cart table? i dont think so
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 public class Cart {
@@ -17,6 +18,6 @@ public class Cart {
 
     protected Long productCount;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Product.class)
     protected Product product;
 }
