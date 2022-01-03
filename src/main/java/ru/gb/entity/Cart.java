@@ -7,8 +7,6 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 
 @Entity
-//@Table(name = "carts")
-//do we need a cart table? i dont think so
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 public class Cart {

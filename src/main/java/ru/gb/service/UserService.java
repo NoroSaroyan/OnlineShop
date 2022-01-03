@@ -1,6 +1,8 @@
 package ru.gb.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,13 +18,11 @@ import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
-    private UserRepository<User> userRepository;
+    private UserRepository userRepository;
 
-    @Autowired
-    public UserService(UserRepository<User> userRepository) {
+    public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
 
     public User findOne(Long id) {
         return userRepository.findById(id).orElse(null);
@@ -42,14 +42,6 @@ public class UserService implements UserDetailsService {
                 authorities("USER").
                 build();
         return u;
-//        return new org.springframework.security.core.userdetails.User(
-//                user.getEmail(),
-//                user.getPassword(),
-//                user.getRoles()
-//                        .stream()
-//                        .map(role -> new SimpleGrantedAuthority(role.getName()))
-//                        .toList()
-//        );
     }
 
     public Page<User> findAll(Pageable pageable) {
